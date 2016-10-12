@@ -1,0 +1,102 @@
+attn: Axel, Erik, Rene
+
+Ablauf
+======
+
+Was soll man aus dem Vortrag mitnehmen?
+ - wie funktionieren multi/many-core grundsätzlich,
+   welche performance lässt man "im klassischen single-thread" modus aktuell liegen
+ - welche modelle sind prinzipiell für open source geeignet und langfristig supportet
+ - wie kann man selbst anfangen in seinem code zu experimentieren
+
+Disclaimer
+ - zu teilen indirekt nvidia funded via GCoE travel grants (there might be some bias)
+ - meinungen & schlechte witze werden nicht notwendig von unseren Arbeitgebern geteilt
+
+Hintergrund
+ - wer wir sind
+ - Rene: z.B. bitcoin GPU miner, etc.
+ - Erik: ...
+ - Axel: ...
+
+1. Concepts
+-----------
+
+- Gimp: 400 MPx Bild Beispiel
+  -> langsam -> weil es die Hardware (1 CPU worker thread) nicht nutzt
+
+- Hardware today (Many & Multi-Core: Desktop GPU, ARM Handy, Spiele GPU)
+
+- Wie kann man mit den vielen Cores nun viele Daten verarbeiten?
+  -> gleichzeitig
+  -> mgl.st unabhängig
+
+- Zwischenbeispiel: C++ Threads & OpenMP 2.0
+  -> Daten irgendwie aufteilen, z.B. master->slave: locken/mutex & bearbeiten
+  -> aber: ist master wirklich notwendig?
+     -> daten besser aufteilen!
+
+- Datenlokalität
+  -> effizientes, asynchrones streaming & pre-fetching
+  -> ggf. caches nutzen für zwischenergebnisse
+
+- vereinfachtes CUDA-Model
+  -> gruppiere threads in gruppen (blocks)
+  -> jede gruppe arbeitet and daten die nah beieinander sind
+  -> auf mancher hardware kann man sogar innerhalb der Gruppe reden
+
+- Modelle nennen (s.u.) und vergleichen bzgl. unseres Models
+  -> explizite und implizite modelle, hardware-nähe
+  -> C++ fähigkeit, abstrahierbarkeit
+  -> wie nennt das model seine "gruppe"
+  -> open source stack einordnen
+
+2. Example Codes
+----------------
+
+- Datenstruktur für Bild
+  -> AoS vs. SoA
+     -> CPU: ein thread läd (allein) alle 3 werte & berechnet -> AoS
+     -> GPU: alle threads der "gruppe" die einzelnen werte
+             (sollten direkt hintereinander liegen) & rechnen dann
+             (auch collective)
+
+Pseudo-Code:
+  r[20e3, 20e3] = 0.3
+  g[20e3, 20e3] = 0.5
+  b[20e3, 20e3] = 0.6
+
+  for i in nx
+    for k in ny
+      // replace with policy for meta programming example
+      sw[ik] = (r[ik] + g[ik] + b[ik])/3
+
+- OpenMP (diesmal richtig)
+- OpenACC
+- Thrust (eher backup)
+- OpenCL (ach fick dich, evtl. vienna-cl)
+  bashing-points:
+  - C
+  - treiber cluster-fuck (alt, atomics falsch, etc.)
+  - consortium cluster-fuck (langsam, blockierend, etc.)
+  - performance cluster-fuck (super hardware dependent, im endeffect rewrite je hardware)
+
+- CUDA
+
+- Zusatzpunkt: Code Reusebility!
+  -> policy design
+  -> C++! (compile-time meta programming)
+
+- cupla
+  -> wer garantiert das schema X in 3 jahren noch geht?
+     - OpenCL: treiber updates seit ... jahren fehlen (Nvidia)
+     - ...
+  -> one that fits them all
+
+3. Speedtest
+------------
+
+- ausführen
+- try it yourself in your code!
+- open source projecte: contribute
+
