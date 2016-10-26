@@ -1,8 +1,9 @@
 # Datenspuren 2016
 Repository for Datenspuren 2016 Talk "The Supercomputer in Front of You"
 
+Speakers: [@psychocoderHPC](https://github.com/psychocoderHPC) and [@ax3l](https://github.com/ax3l)
 
-## Disclaimer
+## Disclaimer & Conflict of Interest
 
 Opinions, bad jokes, typos, denglisch, syntax errors in code snippets, etc. are our own and do
 not necessarily reflect the views of our current, previous or future employers, funding agencies...
