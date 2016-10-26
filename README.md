@@ -22,7 +22,7 @@ which is financed by Nvidia Corp. - btw. not for Datenspuren.
               *architectures*, [DOI:10.5281/zenodo.49768](http://dx.doi.org/10.5281/zenodo.49768), 2016
 
 - Erik Zenker, Benjamin Worpitz, René Widera, Axel Huebl, Guido Juckeland, Andreas Knüpfer, Wolfgang E. Nagel and Michael Bussmann. *Alpaka - An Abstraction Library for Parallel Kernel Acceleration*,
-           [DOI:](), [arXiv:1602.08477](http://arxiv.org/abs/1602.08477), IEEE Computer Society, 2016
+           [DOI:10.1109/IPDPSW.2016.50](http://dx.doi.org/10.1109/IPDPSW.2016.50), [arXiv:1602.08477](http://arxiv.org/abs/1602.08477), IEEE Computer Society, 2016
 
 - Erik Zenker, René Widera, Axel Huebl, Guido Juckeland, Andreas Knüpfer, Wolfgang E. Nagel and Michael Bussmann
            *Performance-Portable Many-Core Plasma Simulations: Porting PIConGPU to OpenPower and Beyond*,
